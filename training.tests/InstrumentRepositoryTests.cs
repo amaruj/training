@@ -14,7 +14,7 @@ namespace training.tests
         public void SetUp()
         {
             //TODO : Replace by the Respository Implementation
-            _repository = Substitute.For<IInstrumentRepository>();
+            _repository = new MyInstrumentRepository();
         }
 
         [Test]
@@ -25,12 +25,14 @@ namespace training.tests
             Assert.Throws<InvalidOperationException>(() => _repository.AddInstrument(instrument));
         }
 
-        [Test]
-        public void TestGetInstrument()
+        [TestCase("Instrument1")]
+        [TestCase("Instrument2")]
+        public void TestGetInstrument(string instrumentName)
         {
-            var instrument = new Instrument("Instrument1", InstrumentType.Bond);
+            var instrument = new Instrument(instrumentName, InstrumentType.Bond);
             _repository.AddInstrument(instrument);
-            Assert.Equals(instrument, _repository.GetInstrument("Instrument1"));
+
+            Assert.AreEqual(instrument, _repository.GetInstrument(instrumentName));
         }
         
         [Test]

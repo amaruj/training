@@ -12,4 +12,6 @@ namespace training
 
         void Init();
     }
+
+
 }
