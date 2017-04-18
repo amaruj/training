@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pricer.cs" />
     <Compile Include="MyInstrumentRepository.cs" />
     <Compile Include="IInstrumentRepository.cs" />
     <Compile Include="Instrument.cs" />

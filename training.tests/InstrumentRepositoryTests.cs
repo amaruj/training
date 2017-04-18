@@ -56,5 +56,29 @@ namespace training.tests
             Assert.AreEqual(5000, _repository.GetInstruments().Count(instrument => instrument.Type == InstrumentType.Bond));
             Assert.AreEqual(5000, _repository.GetInstruments().Count(instrument => instrument.Type == InstrumentType.Forex));
         }
+
+        [Test]
+        public void TestGetRandomInstrumentKey()
+        {
+            _repository.Init();
+            // Une exception se lève si la clé ne correspond à aucun instrument 
+            _repository.GetInstrument(_repository.getRandomInstrumentKey());
+        }
+
+        [Test]
+        public void TestGetRandomInstrumentKeyThrowsAnExceptionIfInstrumentIsEmpty()
+        {
+            Assert.Throws<InvalidOperationException>(() => _repository.getRandomInstrumentKey());
+        }
+
+        [TestCase("bond_1", 100.0)]
+        public void TestPriceUpdate(string key, double price)
+        {
+            _repository.Init();
+            _repository.PriceUpdate(key, price);
+            Assert.AreEqual(_repository.GetInstrument(key).Price, 100.0);
+        }
+
+
     }
 }

@@ -13,6 +13,11 @@ namespace training
             instruments = new Dictionary<string, Instrument>();
         }
 
+        public int size()
+        {
+            return instruments.Count;
+        }
+
         void IInstrumentRepository.AddInstrument(Instrument instrument)
         {
             if (instruments.ContainsKey(instrument.Name))
@@ -52,6 +57,24 @@ namespace training
                 instruments.Add(name1, new Instrument(name1,InstrumentType.Bond));
                 instruments.Add(name2, new Instrument(name2, InstrumentType.Forex));
             }
+        }
+
+        string IInstrumentRepository.getRandomInstrumentKey()
+        {
+            int size = instruments.Count;
+            if(size == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            List<string> keys = new List<string>(instruments.Keys);
+            Random rand = new Random();
+            return keys[rand.Next(size)];
+        }
+
+        
+        void IInstrumentRepository.PriceUpdate(string key, double price)
+        {
+            instruments[key].Price = price;
         }
     }
 }

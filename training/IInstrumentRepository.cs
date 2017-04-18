@@ -11,6 +11,10 @@ namespace training
         IEnumerable<Instrument> GetInstruments();
 
         void Init();
+
+        string getRandomInstrumentKey();
+
+        void PriceUpdate(string key, double price);
     }
 
 
