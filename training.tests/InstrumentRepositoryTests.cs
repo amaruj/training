@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace training.tests
@@ -13,7 +12,6 @@ namespace training.tests
         [SetUp]
         public void SetUp()
         {
-            //TODO : Replace by the Respository Implementation
             _repository = new MyInstrumentRepository();
         }
 

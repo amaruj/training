@@ -1,53 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace training
 {
     public class MyInstrumentRepository : IInstrumentRepository
     {
-       
-
-        public List<Instrument> instruments;
+        private Dictionary<string, Instrument> instruments;
 
         // Constructeur 
         public MyInstrumentRepository()
         {
-            instruments = new List<Instrument>();
+            instruments = new Dictionary<string, Instrument>();
         }
 
         void IInstrumentRepository.AddInstrument(Instrument instrument)
         {
-            if (instruments.Contains(instrument))
+            if (instruments.ContainsKey(instrument.Name))
             {
                 throw new InvalidOperationException();
             }
             else
             {
-                instruments.Add(instrument);
+                instruments.Add(instrument.Name, instrument);
             }
         }
 
      
         Instrument IInstrumentRepository.GetInstrument(string name)
         {
-            for(int i = 0; i < instruments.Count; i++)
+            if (instruments.ContainsKey(name))
             {
-                if(instruments[i].Name == name)
-                {
-                    return instruments[i];
-                }
+                return instruments[name];
             }
+
             throw new InvalidOperationException();
         }
 
     
         IEnumerable<Instrument> IInstrumentRepository.GetInstruments()
         {
-            IEnumerable<Instrument> instrumentsList = new List<Instrument>();
-            return instruments;
+            return instruments.Values;
         }
 
       
@@ -57,8 +49,8 @@ namespace training
             {
                 string name1 = "bond_" + i.ToString();
                 string name2 = "forex_" + i.ToString();
-                instruments.Add(new Instrument(name1,InstrumentType.Bond));
-                instruments.Add(new Instrument(name2, InstrumentType.Forex));
+                instruments.Add(name1, new Instrument(name1,InstrumentType.Bond));
+                instruments.Add(name2, new Instrument(name2, InstrumentType.Forex));
             }
         }
     }
