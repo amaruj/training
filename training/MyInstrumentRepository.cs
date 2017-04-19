@@ -5,37 +5,37 @@ namespace training
 {
     public class MyInstrumentRepository : IInstrumentRepository
     {
-        private Dictionary<string, Instrument> instruments;
+        private readonly Dictionary<string, Instrument> _instruments;
 
         // Constructeur 
         public MyInstrumentRepository()
         {
-            instruments = new Dictionary<string, Instrument>();
+            _instruments = new Dictionary<string, Instrument>();
         }
 
-        public int size()
+        public int Size()
         {
-            return instruments.Count;
+            return _instruments.Count;
         }
 
         void IInstrumentRepository.AddInstrument(Instrument instrument)
         {
-            if (instruments.ContainsKey(instrument.Name))
+            if (_instruments.ContainsKey(instrument.Name))
             {
                 throw new InvalidOperationException();
             }
             else
             {
-                instruments.Add(instrument.Name, instrument);
+                _instruments.Add(instrument.Name, instrument);
             }
         }
 
      
         Instrument IInstrumentRepository.GetInstrument(string name)
         {
-            if (instruments.ContainsKey(name))
+            if (_instruments.ContainsKey(name))
             {
-                return instruments[name];
+                return _instruments[name];
             }
 
             throw new InvalidOperationException();
@@ -44,7 +44,7 @@ namespace training
     
         IEnumerable<Instrument> IInstrumentRepository.GetInstruments()
         {
-            return instruments.Values;
+            return _instruments.Values;
         }
 
       
@@ -52,33 +52,33 @@ namespace training
         {        
             for (int i = 0; i < 5000; i++)
             {
-                string name1 = "bond_" + i.ToString();
-                string name2 = "forex_" + i.ToString();
-                instruments.Add(name1, new Instrument(name1,InstrumentType.Bond));
-                instruments.Add(name2, new Instrument(name2, InstrumentType.Forex));
+                string name1 = "bond_" + i;
+                string name2 = "forex_" + i;
+                _instruments.Add(name1, new Instrument(name1,InstrumentType.Bond));
+                _instruments.Add(name2, new Instrument(name2, InstrumentType.Forex));
             }
         }
 
-        // Sélectionne un nom d'instrument aléatoirement dans le repository
-        string IInstrumentRepository.getRandomInstrumentKey(Random rand)
-        {
-            int size = instruments.Count;
-            if(size == 0)
-            {
-                throw new InvalidOperationException();
-            }
-            List<string> keys = new List<string>(instruments.Keys);            
-            return keys[rand.Next(size)];
+        void IInstrumentRepository.InitWithPrices(int numberOfPrices)
+        {        
+             string name = "bond";
+             _instruments.Add(name, new Instrument(name, InstrumentType.Bond));
+             for (int j = 0; j < numberOfPrices; j++)
+             {
+                _instruments[name].Prices.Push(j);
+             }          
         }
 
         // Met à jour le prix de l'instrument de nom "key" dans le repository
         void IInstrumentRepository.PriceUpdate(string key, double price)
         {
-            instruments[key].Price = price;
-            Console.WriteLine(key);
-            Console.WriteLine("\n");
-            Console.WriteLine(price);
-            Console.WriteLine("\n");
+            _instruments[key].Prices.Push(price);
+            Console.WriteLine($"{key} Price updated : {price}");
+        }
+
+        double IInstrumentRepository.GetMeanPrice(string key, int n)
+        {
+            return _instruments[key].ComputeMeanPrices(n);           
         }
     }
 }

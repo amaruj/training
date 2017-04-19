@@ -1,4 +1,7 @@
-﻿namespace training
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace training
 {
     public class Instrument
     {
@@ -7,12 +10,24 @@
 
         public InstrumentType Type { get; }
 
-        public double Price { get; set; }
+        public Stack<double> Prices; 
 
         public Instrument(string name, InstrumentType type)
         {
             Name = name;
             Type = type;
+            Prices = new Stack<double>();
+        }
+
+        public double ComputeMeanPrices(int n)
+        {
+            int numberOfPrices = Prices.Count;
+            if (numberOfPrices >= n)
+            {
+                numberOfPrices = n;
+            }
+            var enumerable = Prices.Take(numberOfPrices);
+            return enumerable.Average();           
         }
     }
 }

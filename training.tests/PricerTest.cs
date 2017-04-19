@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Threading;
 using NUnit.Framework;
-using System.Timers;
+using NSubstitute;
 
 namespace training.tests
 {
@@ -11,20 +11,46 @@ namespace training.tests
         private IInstrumentRepository _repository;
         private Pricer _pricer;
 
-        [SetUp]
-        public void SetUp()
+       
+        [Test]
+        public void TestPrice()
         {
-            _repository = new MyInstrumentRepository();
-            _repository.Init();
-            Random rand = new Random((int)DateTime.Now.Ticks);
-            _pricer = new Pricer(_repository,500,rand);
+            _repository = Substitute.For<IInstrumentRepository>();
+            _repository.GetInstruments()
+                .Returns(new List<Instrument>
+                {
+                    new Instrument("Toto", InstrumentType.Bond)
+                });
+            _pricer = new Pricer(_repository, 500);
+            _pricer.Price();
+
+            Thread.Sleep(800);
+            
+            _repository.Received(1).PriceUpdate("Toto", Arg.Any<double>());
         }
 
-        [Test]
-        public void TestOnTimedEvent()
-        {          
-            _pricer.OnTimedEvent(new object(), new EventArgs() as ElapsedEventArgs);
-            Assert.IsTrue(true);
+        [TestCase(1)]
+        [TestCase(4)]
+        [TestCase(10)]
+        public void TestMeanPrices(int n)
+        {
+            _repository = new MyInstrumentRepository();
+            _repository.InitWithPrices(n);
+            _pricer = new Pricer(_repository, 500);
+            double mean;
+            switch (n)
+            {
+                case 1:
+                    mean = 0.0;
+                    break;
+                case 4:
+                    mean = 1.5;
+                    break;
+                default:
+                    mean = 7.0;
+                    break;
+            }
+            Assert.AreEqual(_pricer.MeanPrices(5),mean);            
         }
     }
 }

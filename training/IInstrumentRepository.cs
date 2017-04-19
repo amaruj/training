@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System;
 
 namespace training
 {
@@ -13,9 +12,11 @@ namespace training
 
         void Init();
 
-        string getRandomInstrumentKey(Random rand);
+        void InitWithPrices(int numberOfPrices);
 
         void PriceUpdate(string key, double price);
+
+        double GetMeanPrice(string key, int n);
     }
 
 

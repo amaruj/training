@@ -2,6 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 
+
 namespace training.tests
 {
     [TestFixture]
@@ -57,28 +58,12 @@ namespace training.tests
             Assert.AreEqual(5000, _repository.GetInstruments().Count(instrument => instrument.Type == InstrumentType.Forex));
         }
 
-        [Test]
-        public void TestGetRandomInstrumentKey()
-        {
-            _repository.Init();
-            Random rand = new Random();
-            // Une exception se lève si la clé ne correspond à aucun instrument 
-            _repository.GetInstrument(_repository.getRandomInstrumentKey(rand));
-        }
-
-        [Test]
-        public void TestGetRandomInstrumentKeyThrowsAnExceptionIfInstrumentIsEmpty()
-        {
-            Random rand = new Random();
-            Assert.Throws<InvalidOperationException>(() => _repository.getRandomInstrumentKey(rand));
-        }
-
         [TestCase("bond_1", 100.0)]
         public void TestPriceUpdate(string key, double price)
         {
             _repository.Init();
             _repository.PriceUpdate(key, price);
-            Assert.AreEqual(_repository.GetInstrument(key).Price, 100.0);
+            Assert.AreEqual(_repository.GetInstrument(key).Prices.Peek(), 100.0);
         }
 
 

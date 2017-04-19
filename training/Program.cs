@@ -1,25 +1,22 @@
 ﻿using System;
+
 namespace training
 {
     public class Program
     {
         private static void Main(string[] args)
         {
-            IInstrumentRepository _repository;
-            Pricer _pricer;
-
-            // Génrateur aléatoire 
-            Random rand;
-            rand = new Random((int)DateTime.Now.Ticks);
-
             // Initialisation d'un repository 
-            _repository = new MyInstrumentRepository();
-            _repository.Init();
+            IInstrumentRepository repository = new MyInstrumentRepository();
+            repository.InitWithPrices(10);
+         
+            var pricer = new Pricer(repository, 20);
+            Console.WriteLine($"Moyenne des 5 derniers prix : {pricer.MeanPrices(5)}");
+            while (Console.Read() != 'q')
+            {
+            }
 
-            // Création d'un pricer 
-            _pricer = new Pricer(_repository, 1000, rand);
-            _pricer.price();
-            
+
         }
     }
 }

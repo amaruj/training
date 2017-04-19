@@ -1,39 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace training
 {
     public class Pricer
     {
-        System.Timers.Timer timer;
-        IInstrumentRepository ir;
-        Random rand;
+        private readonly Timer _timer;
+        private readonly IInstrumentRepository _instrumentRepository;
+        private readonly string[] _instruments;
+        private readonly Random _rand;
 
-        public Pricer(IInstrumentRepository ir, double interval, Random rand)
+        public Pricer(IInstrumentRepository instrumentRepository, double interval)
         {
-            timer = new Timer(interval);
-            this.ir = ir;
-            this.rand = rand;
+            _timer = new Timer(interval);
+            _instrumentRepository = instrumentRepository;
+            _instruments= _instrumentRepository.GetInstruments().Select(instrument => instrument.Name).ToArray();
+            _rand = new Random((int)DateTime.Now.Ticks);
         }
         
-        public void price()
+        public void Price()
         {                      
-            timer.Elapsed +=  OnTimedEvent;
-            timer.Enabled = true;
-            Console.WriteLine("Press \'q\' to quit the sample.");
-            while (Console.Read() != 'q') ;
+            _timer.Elapsed +=  OnTimedEvent;
+            _timer.Enabled = true;
         }
 
-        public void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             // Choix aléatoire d'un instrument dans le repository
-            string randomKey = ir.getRandomInstrumentKey(rand);
-            double randPrice = 100.0 * rand.NextDouble();
-            ir.PriceUpdate(randomKey, randPrice);
+            string randomKey = GetRandomInstrumentKey(_rand);
+            double randPrice = 100.0 * _rand.NextDouble();
+            _instrumentRepository.PriceUpdate(randomKey, randPrice);
+        }
+
+        private string GetRandomInstrumentKey(Random rand)
+        {
+            int size = _instruments.Length;
+            if (size == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            return _instruments[rand.Next(size)];
+        }
+
+        public double MeanPrices(int n)
+        {
+            if (n < 1)
+            {
+                throw new InvalidOperationException();
+            }
+            string randomKey = GetRandomInstrumentKey(_rand);
+            return _instrumentRepository.GetMeanPrice(randomKey,n);
         }
     }
 }
