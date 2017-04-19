@@ -61,14 +61,16 @@ namespace training.tests
         public void TestGetRandomInstrumentKey()
         {
             _repository.Init();
+            Random rand = new Random();
             // Une exception se lève si la clé ne correspond à aucun instrument 
-            _repository.GetInstrument(_repository.getRandomInstrumentKey());
+            _repository.GetInstrument(_repository.getRandomInstrumentKey(rand));
         }
 
         [Test]
         public void TestGetRandomInstrumentKeyThrowsAnExceptionIfInstrumentIsEmpty()
         {
-            Assert.Throws<InvalidOperationException>(() => _repository.getRandomInstrumentKey());
+            Random rand = new Random();
+            Assert.Throws<InvalidOperationException>(() => _repository.getRandomInstrumentKey(rand));
         }
 
         [TestCase("bond_1", 100.0)]

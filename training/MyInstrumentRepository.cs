@@ -59,22 +59,26 @@ namespace training
             }
         }
 
-        string IInstrumentRepository.getRandomInstrumentKey()
+        // Sélectionne un nom d'instrument aléatoirement dans le repository
+        string IInstrumentRepository.getRandomInstrumentKey(Random rand)
         {
             int size = instruments.Count;
             if(size == 0)
             {
                 throw new InvalidOperationException();
             }
-            List<string> keys = new List<string>(instruments.Keys);
-            Random rand = new Random();
+            List<string> keys = new List<string>(instruments.Keys);            
             return keys[rand.Next(size)];
         }
 
-        
+        // Met à jour le prix de l'instrument de nom "key" dans le repository
         void IInstrumentRepository.PriceUpdate(string key, double price)
         {
             instruments[key].Price = price;
+            Console.WriteLine(key);
+            Console.WriteLine("\n");
+            Console.WriteLine(price);
+            Console.WriteLine("\n");
         }
     }
 }

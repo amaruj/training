@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using System.Timers;
 
 namespace training.tests
 {
@@ -15,13 +16,14 @@ namespace training.tests
         {
             _repository = new MyInstrumentRepository();
             _repository.Init();
-            _pricer = new Pricer(_repository,500);
+            Random rand = new Random((int)DateTime.Now.Ticks);
+            _pricer = new Pricer(_repository,500,rand);
         }
 
         [Test]
-        public void TestPrice()
-        {
-            _pricer.price();
+        public void TestOnTimedEvent()
+        {          
+            _pricer.OnTimedEvent(new object(), new EventArgs() as ElapsedEventArgs);
             Assert.IsTrue(true);
         }
     }

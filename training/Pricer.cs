@@ -4,26 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+
 namespace training
 {
     public class Pricer
     {
-        Timer timer;
+        System.Timers.Timer timer;
         IInstrumentRepository ir;
+        Random rand;
 
-        public Pricer(IInstrumentRepository ir, double interval)
+        public Pricer(IInstrumentRepository ir, double interval, Random rand)
         {
-            timer = new System.Timers.Timer(interval);
+            timer = new Timer(interval);
             this.ir = ir;
+            this.rand = rand;
         }
         
         public void price()
+        {                      
+            timer.Elapsed +=  OnTimedEvent;
+            timer.Enabled = true;
+            Console.WriteLine("Press \'q\' to quit the sample.");
+            while (Console.Read() != 'q') ;
+        }
+
+        public void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Random rand = new Random();
             // Choix aléatoire d'un instrument dans le repository
-            string randomKey = ir.getRandomInstrumentKey();
-            double randPrice = rand.NextDouble();
-            ir.PriceUpdate(randomKey,randPrice);
+            string randomKey = ir.getRandomInstrumentKey(rand);
+            double randPrice = 100.0 * rand.NextDouble();
+            ir.PriceUpdate(randomKey, randPrice);
         }
     }
 }
