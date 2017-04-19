@@ -9,10 +9,11 @@ namespace training.tests
     class InstrumentTest
     {
         private Instrument _instrument;
+
         [SetUp]
         public void SetUp()
         {
-            _instrument = new Instrument("Instrument", InstrumentType.Bond);           
+            _instrument = new Instrument("Instrument", InstrumentType.Bond);
         }
 
         [TestCase(1)]
@@ -36,9 +37,10 @@ namespace training.tests
                 default:
                     mean = 7.0;
                     break;
-            }        
+            }
             Assert.AreEqual(_instrument.ComputeMeanPrices(5), mean);
 
         }
+
     }
 }

@@ -22,6 +22,10 @@ namespace training
         public double ComputeMeanPrices(int n)
         {
             int numberOfPrices = Prices.Count;
+            if (numberOfPrices == 0)
+            {
+                return 0.0;
+            }
             if (numberOfPrices >= n)
             {
                 numberOfPrices = n;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 using NSubstitute;
@@ -52,5 +53,26 @@ namespace training.tests
             }
             Assert.AreEqual(_pricer.MeanPrices(5),mean);            
         }
+
+        [Test]
+        public void TestMeanPricesWhenTheStackIsEmpty()
+        {
+            _repository = new MyInstrumentRepository();
+            _repository.Init();
+            _pricer = new Pricer(_repository, 500);         
+            Assert.AreEqual(_pricer.MeanPrices(5), 0.0);
+        }
+
+        [TestCase(-1)]
+        [TestCase(0)]
+        public void TestMeanPricesWithInvalidInput(int n)
+        {
+            _repository = new MyInstrumentRepository();
+            _repository.Init();
+            _pricer = new Pricer(_repository, 500);
+            Assert.Throws<InvalidOperationException>(() => _pricer.MeanPrices(n) );
+        }
+
+
     }
 }
