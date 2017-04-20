@@ -52,7 +52,7 @@ namespace training.tests
         [Test]
         public void TestInit()
         {
-            _repository.Init();
+            _repository.Init(5000);
 
             Assert.AreEqual(5000, _repository.GetInstruments().Count(instrument => instrument.Type == InstrumentType.Bond));
             Assert.AreEqual(5000, _repository.GetInstruments().Count(instrument => instrument.Type == InstrumentType.Forex));
@@ -61,9 +61,9 @@ namespace training.tests
         [TestCase("bond_1", 100.0)]
         public void TestPriceUpdate(string key, double price)
         {
-            _repository.Init();
+            _repository.Init(5000);
             _repository.PriceUpdate(key, price);
-            Assert.AreEqual(_repository.GetInstrument(key).Prices.Peek(), 100.0);
+            Assert.AreEqual(_repository.GetInstrument(key).Price, 100.0);
         }
 
 

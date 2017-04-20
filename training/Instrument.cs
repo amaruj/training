@@ -1,37 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace training
 {
     public class Instrument
     {
+        private readonly Stack<double> _prices;
+        private const int NumberOfPrices = 5;
 
         public string Name { get; }
 
         public InstrumentType Type { get; }
 
-        public Stack<double> Prices; 
+        public double Price { get; private set; }
 
+        public double MeanPrice => _prices.Average();
+        
         public Instrument(string name, InstrumentType type)
         {
             Name = name;
             Type = type;
-            Prices = new Stack<double>();
+            _prices = new Stack<double>();
         }
-
-        public double ComputeMeanPrices(int n)
+        
+        public void UpdatePrice(string key, double price)
         {
-            int numberOfPrices = Prices.Count;
-            if (numberOfPrices == 0)
+            Price = price;
+
+            _prices.Push(price);
+
+            if (_prices.Count > NumberOfPrices)
             {
-                return 0.0;
+                _prices.Pop();
             }
-            if (numberOfPrices >= n)
-            {
-                numberOfPrices = n;
-            }
-            var enumerable = Prices.Take(numberOfPrices);
-            return enumerable.Average();           
+
+            Console.WriteLine($"{key} Price updated : {price} // Mean Price : {MeanPrice}");
         }
     }
 }

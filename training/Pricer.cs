@@ -42,15 +42,5 @@ namespace training
             }
             return _instruments[rand.Next(size)];
         }
-
-        public double MeanPrices(int n)
-        {
-            if (n < 1)
-            {
-                throw new InvalidOperationException();
-            }
-            string randomKey = GetRandomInstrumentKey(_rand);
-            return _instrumentRepository.GetMeanPrice(randomKey,n);
-        }
     }
 }

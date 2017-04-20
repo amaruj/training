@@ -10,14 +10,8 @@ namespace training
 
         IEnumerable<Instrument> GetInstruments();
 
-        void Init();
-
-        void InitWithPrices(int numberOfPrices);
+        void Init(int numberOfInstrument);
 
         void PriceUpdate(string key, double price);
-
-        double GetMeanPrice(string key, int n);
     }
-
-
 }

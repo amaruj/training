@@ -48,9 +48,9 @@ namespace training
         }
 
       
-        void IInstrumentRepository.Init()
+        void IInstrumentRepository.Init(int numberOfInstrument)
         {        
-            for (int i = 0; i < 5000; i++)
+            for (int i = 0; i < numberOfInstrument; i++)
             {
                 string name1 = "bond_" + i;
                 string name2 = "forex_" + i;
@@ -59,26 +59,10 @@ namespace training
             }
         }
 
-        void IInstrumentRepository.InitWithPrices(int numberOfPrices)
-        {        
-             string name = "bond";
-             _instruments.Add(name, new Instrument(name, InstrumentType.Bond));
-             for (int j = 0; j < numberOfPrices; j++)
-             {
-                _instruments[name].Prices.Push(j);
-             }          
-        }
-
         // Met à jour le prix de l'instrument de nom "key" dans le repository
         void IInstrumentRepository.PriceUpdate(string key, double price)
         {
-            _instruments[key].Prices.Push(price);
-            Console.WriteLine($"{key} Price updated : {price}");
-        }
-
-        double IInstrumentRepository.GetMeanPrice(string key, int n)
-        {
-            return _instruments[key].ComputeMeanPrices(n);           
+            _instruments[key].UpdatePrice(key, price);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace training.tests
         [TestCase(4)]
         [TestCase(10)]
         public void TestMeanPrices(int n)
-        {
+        {   
             _repository = new MyInstrumentRepository();
             _repository.InitWithPrices(n);
             _pricer = new Pricer(_repository, 500);

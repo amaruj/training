@@ -8,10 +8,11 @@ namespace training
         {
             // Initialisation d'un repository 
             IInstrumentRepository repository = new MyInstrumentRepository();
-            repository.InitWithPrices(10);
+            repository.Init(10);
          
-            var pricer = new Pricer(repository, 20);
-            Console.WriteLine($"Moyenne des 5 derniers prix : {pricer.MeanPrices(5)}");
+            var pricer = new Pricer(repository, 1);
+
+            pricer.Price();
             while (Console.Read() != 'q')
             {
             }
