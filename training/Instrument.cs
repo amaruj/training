@@ -6,7 +6,7 @@ namespace training
 {
     public class Instrument
     {
-        private readonly Stack<double> _prices;
+        private readonly Queue<double> _prices;
         private const int NumberOfPrices = 5;
 
         public string Name { get; }
@@ -21,18 +21,18 @@ namespace training
         {
             Name = name;
             Type = type;
-            _prices = new Stack<double>();
+            _prices = new Queue<double>();
         }
         
         public void UpdatePrice(string key, double price)
         {
             Price = price;
 
-            _prices.Push(price);
+            _prices.Enqueue(price);
 
             if (_prices.Count > NumberOfPrices)
             {
-                _prices.Pop();
+                _prices.Dequeue();
             }
 
             Console.WriteLine($"{key} Price updated : {price} // Mean Price : {MeanPrice}");

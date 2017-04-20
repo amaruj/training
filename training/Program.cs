@@ -10,7 +10,7 @@ namespace training
             IInstrumentRepository repository = new MyInstrumentRepository();
             repository.Init(10);
          
-            var pricer = new Pricer(repository, 1);
+            var pricer = new Pricer(repository, 500);
 
             pricer.Price();
             while (Console.Read() != 'q')

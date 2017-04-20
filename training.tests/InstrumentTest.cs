@@ -17,25 +17,24 @@ namespace training.tests
         [TestCase(10)]
         public void TestMeanPrices(int n)
         {
-            //for (int j = 0; j < n; j++)
-            //{
-            //    _instrument.Prices.Push(j);
-            //}
-            //double mean;
-            //switch (n)
-            //{
-            //    case 1:
-            //        mean = 0.0;
-            //        break;
-            //    case 4:
-            //        mean = 1.5;
-            //        break;
-            //    default:
-            //        mean = 7.0;
-            //        break;
-            //}
-            //Assert.AreEqual(_instrument.ComputeMeanPrices(5), mean);
-
+            for (int j = 0; j < n; j++)
+            {
+                _instrument.UpdatePrice("Instrument", j);
+            }
+            double mean;
+            switch (n)
+            {
+                case 1:
+                    mean = 0.0;
+                    break;
+                case 4:
+                    mean = 1.5;
+                    break;
+                default:
+                    mean = 7.0;
+                    break;
+            }
+            Assert.AreEqual(_instrument.MeanPrice, mean);
         }
 
     }
