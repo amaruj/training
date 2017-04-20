@@ -1,0 +1,24 @@
+﻿<Window x:Class="training.wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:training.wpf"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding Instruments}">
+            
+        </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Width="60" Margin="5" Command="{Binding StartCommand}">Start</Button>
+            <Button Width="60" Margin="5" Command="{Binding StopCommand}">Stop</Button>
+        </StackPanel>
+    </Grid>
+</Window>

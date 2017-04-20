@@ -15,7 +15,9 @@ namespace training
 
         public double Price { get; private set; }
 
-        public double MeanPrice => _prices.Average();
+        public double MeanPrice => _prices.Any() ? _prices.Average() : 0;
+
+        public Action PriceUpdated;
         
         public Instrument(string name, InstrumentType type)
         {
@@ -35,6 +37,7 @@ namespace training
                 _prices.Dequeue();
             }
 
+            PriceUpdated?.Invoke();
             Console.WriteLine($"{key} Price updated : {price} // Mean Price : {MeanPrice}");
         }
     }
