@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "training", "training\training.csproj", "{9D907451-D3C8-40AB-97A3-BAD209B5AD6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "training.tests", "training.tests\training.tests.csproj", "{CEC9458D-4193-48D4-B298-4E4800A29F6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "training.wpf", "training.wpf\training.wpf.csproj", "{EEFCE70D-61A6-42E5-AFDE-05874AD26674}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "training.winform", "training.winform\training.winform.csproj", "{DE696414-EF61-4FD6-B47A-CA06EBF1CB97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{EEFCE70D-61A6-42E5-AFDE-05874AD26674}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEFCE70D-61A6-42E5-AFDE-05874AD26674}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEFCE70D-61A6-42E5-AFDE-05874AD26674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE696414-EF61-4FD6-B47A-CA06EBF1CB97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE696414-EF61-4FD6-B47A-CA06EBF1CB97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE696414-EF61-4FD6-B47A-CA06EBF1CB97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE696414-EF61-4FD6-B47A-CA06EBF1CB97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,6 +25,18 @@ namespace training
             _timer.Enabled = true;
         }
 
+        public void StopPrice()
+        {
+            _timer.Stop();          
+        }
+
+        public void Restart()
+        {
+            _timer.Stop();
+            _instrumentRepository.CleanPrices();
+            _timer.Enabled = true;
+        }
+
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             // Choix aléatoire d'un instrument dans le repository

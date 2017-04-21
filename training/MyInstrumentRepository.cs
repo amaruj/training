@@ -59,6 +59,14 @@ namespace training
             }
         }
 
+        void IInstrumentRepository.CleanPrices()
+        {
+            foreach(var instrument in _instruments )
+            {
+                instrument.Value.CleanPrices();
+            }
+        }
+
         // Met à jour le prix de l'instrument de nom "key" dans le repository
         void IInstrumentRepository.PriceUpdate(string key, double price)
         {

@@ -19,6 +19,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Width="60" Margin="5" Command="{Binding StartCommand}">Start</Button>
             <Button Width="60" Margin="5" Command="{Binding StopCommand}">Stop</Button>
+            <Button Width="60" Margin="5" Command="{Binding RestartCommand}" Content="Restart"/>
         </StackPanel>
     </Grid>
 </Window>

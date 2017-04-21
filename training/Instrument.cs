@@ -40,5 +40,12 @@ namespace training
             PriceUpdated?.Invoke();
             Console.WriteLine($"{key} Price updated : {price} // Mean Price : {MeanPrice}");
         }
+
+        public void CleanPrices()
+        {
+            Price = 0.0;
+            _prices.Clear();
+        }
+
     }
 }

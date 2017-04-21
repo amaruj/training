@@ -12,6 +12,8 @@ namespace training
 
         void Init(int numberOfInstrument);
 
+        void CleanPrices();
+
         void PriceUpdate(string key, double price);
     }
 }

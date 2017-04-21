@@ -4,7 +4,7 @@ namespace training
 {
     public class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             // Initialisation d'un repository 
             IInstrumentRepository repository = new MyInstrumentRepository();

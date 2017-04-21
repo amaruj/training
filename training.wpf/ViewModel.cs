@@ -18,6 +18,8 @@ namespace training.wpf
 
         public ICommand StopCommand { get; private set; }
 
+        public ICommand RestartCommand { get; private set; }
+
         public ViewModel()
         {
             _instrumentRepository = new MyInstrumentRepository();
@@ -26,8 +28,10 @@ namespace training.wpf
                 new ObservableCollection<InstrumentViewModel>(
                     _instrumentRepository.GetInstruments().Select(instrument => new InstrumentViewModel(instrument)));
             _pricer = new Pricer(_instrumentRepository, 1);
+            
             StartCommand = new RelayCommand(o => { _pricer.Price(); }, o => true);
-            StopCommand = new RelayCommand(o => {  }, o => false);
+            StopCommand = new RelayCommand(o => { _pricer.StopPrice(); }, o => true);
+            RestartCommand = new RelayCommand(o => { _pricer.Restart(); }, o => true);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
