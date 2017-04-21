@@ -1,0 +1,22 @@
+Robert C. Martin
+Martin Fowler
+Kent beck
+
+http://connect.adfab.fr/test/gherkin-et-les-tests-dacceptation
+https://xebialabs.com/periodic-table-of-devops-tools/
+
+
+https://mva.microsoft.com/fr-fr/training-courses/dbuter-en-dveloppement-parallle-avec-le-framework-net-14258?l=8V8mSBUfB_8900115888
+
+aka.ms/mva
+
+
+Under the Hood of .NET Memory Management
+C# 6.0 in a Nutshell,
+https://www.manning.com/books/dependency-injection-in-dot-net
+
+
+
+
+
+IoC : Inversion of Control
